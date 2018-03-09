@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EasyLife.iml" filepath="$PROJECT_DIR$/EasyLife.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Android\Project\EasyLife\easylife\app.iml" filepath="C:\Android\Project\EasyLife\easylife\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easylife/easylife.iml" filepath="$PROJECT_DIR$/easylife/easylife.iml" />
       <module fileurl="file://$PROJECT_DIR$/latte-annotations/latte-annotations.iml" filepath="$PROJECT_DIR$/latte-annotations/latte-annotations.iml" />
       <module fileurl="file://$PROJECT_DIR$/latte-compiler/latte-compiler.iml" filepath="$PROJECT_DIR$/latte-compiler/latte-compiler.iml" />
       <module fileurl="file://$PROJECT_DIR$/latte-core/latte-core.iml" filepath="$PROJECT_DIR$/latte-core/latte-core.iml" />
