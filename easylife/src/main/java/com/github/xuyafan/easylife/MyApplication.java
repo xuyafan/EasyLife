@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.github.xuyafan.latte.app.Latte;
 import com.github.xuyafan.latte.ec.icon.FontEcModule;
+import com.github.xuyafan.latte.net.interceptors.DebugInterceptor;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 /**
@@ -19,6 +20,7 @@ public class MyApplication extends Application{
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
                 .withApiHost("http://127.0.0.1")
+                .withInterceptor(new DebugInterceptor("test", R.raw.test))
                 .configure();
     }
 }

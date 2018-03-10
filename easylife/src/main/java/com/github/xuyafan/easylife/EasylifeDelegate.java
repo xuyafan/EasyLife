@@ -10,6 +10,13 @@ import com.github.xuyafan.latte.net.RestClient;
 import com.github.xuyafan.latte.net.callback.IError;
 import com.github.xuyafan.latte.net.callback.IFailure;
 import com.github.xuyafan.latte.net.callback.ISuccess;
+import com.github.xuyafan.latte.net.rx.RxRestClient;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * author： xuyafan
@@ -26,17 +33,18 @@ public class EasylifeDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceStat, View rootView) {
-        testRestClientGet();
+//        testRestClientGet();
+        testRxGet();
     }
 
-    private void testRestClientGet(){
+    private void testRestClientGet() {
         RestClient.builder()
-                .url("http://news.baidu.com/")
+                .url("http://127.0.0.1/test")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
                     }
                 })
                 .failure(new IFailure() {
@@ -53,6 +61,37 @@ public class EasylifeDelegate extends LatteDelegate {
                 })
                 .build()
                 .get();
+    }
+
+    private void testRxGet() {
+        final String url = "http://127.0.0.1/test";
+        RxRestClient.builder()
+                .url(url)
+                .build()
+                .get()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Toast.makeText(getContext(), "RxGet:" + s, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
 }

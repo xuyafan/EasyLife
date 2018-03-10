@@ -1,4 +1,4 @@
-package com.github.xuyafan.latte.ui;
+package com.github.xuyafan.latte.ui.loader;
 
 
 @SuppressWarnings("unused")

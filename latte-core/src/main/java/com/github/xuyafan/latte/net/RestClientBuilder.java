@@ -6,9 +6,10 @@ import com.github.xuyafan.latte.net.callback.IError;
 import com.github.xuyafan.latte.net.callback.IFailure;
 import com.github.xuyafan.latte.net.callback.IRequest;
 import com.github.xuyafan.latte.net.callback.ISuccess;
-import com.github.xuyafan.latte.ui.LatteLoader;
-import com.github.xuyafan.latte.ui.LoaderStyle;
+import com.github.xuyafan.latte.ui.loader.LatteLoader;
+import com.github.xuyafan.latte.ui.loader.LoaderStyle;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
@@ -21,9 +22,8 @@ import okhttp3.RequestBody;
 
 public class RestClientBuilder {
 
-    private String mUrl = null;
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
-
+    private String mUrl = null;
     private IRequest mRequest = null;
     private ISuccess mSuccess = null;
     private IFailure mFailure = null;
@@ -32,6 +32,11 @@ public class RestClientBuilder {
 
     private LoaderStyle mLoaderStyle = null;
     private Context mContext = null;
+    private File mFile = null;
+
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mName = null;
 
     RestClientBuilder() {
 
@@ -78,19 +83,42 @@ public class RestClientBuilder {
         return this;
     }
 
-    public final RestClientBuilder loader(Context context,LoaderStyle loaderStyle) {
+    public final RestClientBuilder loader(Context context, LoaderStyle loaderStyle) {
         this.mContext = context;
-        this.mLoaderStyle=loaderStyle;
+        this.mLoaderStyle = loaderStyle;
         return this;
     }
 
     public final RestClientBuilder loader(Context context) {
         this.mContext = context;
-        this.mLoaderStyle= LatteLoader.DEFAULT_LOADER_TYPE;
+        this.mLoaderStyle = LatteLoader.DEFAULT_LOADER_TYPE;
         return this;
     }
 
+    public final RestClientBuilder file(File file) {
+        this.mFile = file;
+        return this;
+    }
 
+    public final RestClientBuilder file(String filePath) {
+        this.mFile = new File(filePath);
+        return this;
+    }
+
+    public final RestClientBuilder name(String name) {
+        this.mName = name;
+        return this;
+    }
+
+    public final RestClientBuilder dir(String dir) {
+        this.mDownloadDir = dir;
+        return this;
+    }
+
+    public final RestClientBuilder extension(String extension) {
+        this.mExtension = extension;
+        return this;
+    }
 
 
     public final RestClient build() {
@@ -103,7 +131,11 @@ public class RestClientBuilder {
                 mError,
                 mBody,
                 mLoaderStyle,
-                mContext);
+                mContext,
+                mFile,
+                mDownloadDir,
+                mExtension,
+                mName);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.github.xuyafan.latte.net;
 
 
-enum HttpMethod {
+public enum HttpMethod {
     GET,
     POST,
     POST_RAW,

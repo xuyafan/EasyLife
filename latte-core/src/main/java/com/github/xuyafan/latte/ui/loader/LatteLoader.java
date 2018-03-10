@@ -1,4 +1,4 @@
-package com.github.xuyafan.latte.ui;
+package com.github.xuyafan.latte.ui.loader;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatDialog;
@@ -7,7 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.github.xuyafan.latte.R;
-import com.github.xuyafan.latte.util.DimenUtil;
+import com.github.xuyafan.latte.util.dimen.DimenUtil;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -19,14 +19,12 @@ import java.util.ArrayList;
 
 public class LatteLoader {
 
+    public static final LoaderStyle DEFAULT_LOADER_TYPE = LoaderStyle.BallClipRotatePulseIndicator;
     //默认宽高比
     private static final int LOADER_SIZE_SCALE =8;
     //偏移量
     private static final int LOADER_OFFSET_SCALE =10;
-
     private static final ArrayList<AppCompatDialog> LOADERS =new ArrayList<>();
-
-    public static final LoaderStyle DEFAULT_LOADER_TYPE = LoaderStyle.BallClipRotatePulseIndicator;
 
     public static void showLoading(Context context,String type){
 

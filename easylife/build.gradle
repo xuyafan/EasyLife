@@ -27,5 +27,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     compile project(':latte-ec')
+    provided project(':latte-annotations')
     annotationProcessor project(':latte-compiler')
+
 }
