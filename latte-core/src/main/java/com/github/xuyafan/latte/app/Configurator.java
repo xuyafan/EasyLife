@@ -1,5 +1,8 @@
 package com.github.xuyafan.latte.app;
 
+import android.app.Activity;
+import android.os.Handler;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -15,14 +18,17 @@ import okhttp3.Interceptor;
 
 public class Configurator {
     private static final HashMap<Object, Object> LATTE_CONFIGS = new HashMap<>();
-    private static final ArrayList<IconFontDescriptor> ICONS =new ArrayList<>();
+    private static final Handler HANDLER = new Handler();
+    private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
     private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
-    private Configurator(){
+    private Configurator() {
+
         LATTE_CONFIGS.put(ConfigKeys.CONFIG_READY, false);
+        LATTE_CONFIGS.put(ConfigKeys.HANDLER, HANDLER);
     }
 
-    public static Configurator getInstance(){
+    public static Configurator getInstance() {
         return Holder.INSTANCE;
     }
 
@@ -30,17 +36,18 @@ public class Configurator {
         return LATTE_CONFIGS;
     }
 
-    public final void configure(){
+    public final void configure() {
         initIcons();
+
         LATTE_CONFIGS.put(ConfigKeys.CONFIG_READY, true);
     }
 
-    public final Configurator withApiHost(String host){
+    public final Configurator withApiHost(String host) {
         LATTE_CONFIGS.put(ConfigKeys.API_HOST, host);
         return this;
     }
 
-    public final Configurator withIcon(IconFontDescriptor descriptor){
+    public final Configurator withIcon(IconFontDescriptor descriptor) {
         ICONS.add(descriptor);
         return this;
     }
@@ -57,10 +64,26 @@ public class Configurator {
         return this;
     }
 
-    private void checkConfiguration(){
+    public final Configurator withWeChatAppId(String appId) {
+        LATTE_CONFIGS.put(ConfigKeys.WE_CHAT_APP_ID, appId);
+        return this;
+    }
+
+    public final Configurator withWeChatAppSecret(String appSecret) {
+        LATTE_CONFIGS.put(ConfigKeys.WE_CHAT_APP_SECRET, appSecret);
+        return this;
+    }
+
+    public final Configurator withActivity(Activity activity) {
+        LATTE_CONFIGS.put(ConfigKeys.ACTIVITY, activity);
+        return this;
+    }
+
+
+    private void checkConfiguration() {
         final boolean isReady = (boolean) LATTE_CONFIGS.get(ConfigKeys.CONFIG_READY);
-        if(!isReady){
-            throw  new RuntimeException("Configuration is not ready,call configure");
+        if (!isReady) {
+            throw new RuntimeException("Configuration is not ready,call configure");
         }
     }
 

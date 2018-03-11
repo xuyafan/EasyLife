@@ -1,11 +1,14 @@
 package com.github.xuyafan.latte.ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.github.xuyafan.latte.app.AccountManager;
+import com.github.xuyafan.latte.app.IUserChecker;
 import com.github.xuyafan.latte.delegates.LatteDelegate;
 import com.github.xuyafan.latte.ec.R;
 import com.github.xuyafan.latte.ui.launcher.LauncherHolderCreator;
@@ -23,6 +26,7 @@ public class LauncherScollDelegate extends LatteDelegate implements OnItemClickL
 
     private static final ArrayList<Integer> INTEGERS = new ArrayList<>();
     private ConvenientBanner<Integer> mConvenientBanner = null;
+    private ILauncherListener mILauncherListener = null;
 
     private void initBanner() {
         INTEGERS.add(R.mipmap.launcher_01);
@@ -38,6 +42,14 @@ public class LauncherScollDelegate extends LatteDelegate implements OnItemClickL
                 .setOnItemClickListener(this)
                 .setCanLoop(true);
 
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ILauncherListener) {
+            mILauncherListener = (ILauncherListener) activity;
+        }
     }
 
     @Override
@@ -58,7 +70,21 @@ public class LauncherScollDelegate extends LatteDelegate implements OnItemClickL
             LattePreference.setAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHE_APP.name(), true);
 
             //检查是否登录
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    if (mILauncherListener != null) {
+                        mILauncherListener.onLaunchFinish(OnLaunchFinishTag.SIGNED);
+                    }
+                }
 
+                @Override
+                public void onNotSignIn() {
+                    if (mILauncherListener != null) {
+                        mILauncherListener.onLaunchFinish(OnLaunchFinishTag.NOT_SIGNED);
+                    }
+                }
+            });
         }
 
     }

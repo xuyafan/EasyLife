@@ -5,5 +5,5 @@ package com.github.xuyafan.latte.delegates;
  * description:
  */
 
-public abstract class PermissonCheckerDelegate extends BaseDelegate{
+public abstract class PermissonCheckerDelegate extends BaseDelegate {
 }

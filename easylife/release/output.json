@@ -1,0 +1,18 @@
+[
+  {
+    "outputType": {
+      "type": "APK"
+    },
+    "apkInfo": {
+      "type": "MAIN",
+      "splits": [],
+      "versionCode": 1
+    },
+    "path": "easylife-release.apk",
+    "properties": {
+      "packageId": "com.github.xuyafan.easylife",
+      "split": "",
+      "minSdkVersion": "21"
+    }
+  }
+]

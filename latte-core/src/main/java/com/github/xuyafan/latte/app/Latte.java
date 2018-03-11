@@ -1,6 +1,7 @@
 package com.github.xuyafan.latte.app;
 
 import android.content.Context;
+import android.os.Handler;
 
 /**
  * author： xuyafan
@@ -8,6 +9,7 @@ import android.content.Context;
  */
 
 public final class Latte {
+
     public static Configurator init(Context context) {
         Configurator.getInstance().getLatteConfigs()
                 .put(ConfigKeys.APPLICATION_CONTEXT, context.getApplicationContext());
@@ -26,5 +28,13 @@ public final class Latte {
         return getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
     }
 
+    public static String getAPIHost() {
+
+        return getConfiguration(ConfigKeys.API_HOST);
+    }
+
+    public static Handler getHandler() {
+        return getConfiguration(ConfigKeys.HANDLER);
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.github.xuyafan.latte.ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -7,11 +8,14 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Toast;
 
+import com.github.xuyafan.latte.app.Latte;
 import com.github.xuyafan.latte.delegates.LatteDelegate;
 import com.github.xuyafan.latte.ec.R;
 import com.github.xuyafan.latte.ec.R2;
+import com.github.xuyafan.latte.net.RestClient;
+import com.github.xuyafan.latte.net.callback.ISuccess;
+import com.github.xuyafan.latte.util.log.LatteLogger;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,6 +43,16 @@ public class SignUpDelegate extends LatteDelegate {
     @BindView(R2.id.tv_link_sign_in)
     AppCompatTextView nTvLinkSignIn;
 
+    private ISignListener mISignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (activity instanceof ISignListener) {
+            mISignListener = (ISignListener) activity;
+        }
+    }
 
     @Override
     public Object setLayout() {
@@ -53,20 +67,28 @@ public class SignUpDelegate extends LatteDelegate {
     @OnClick(R2.id.btn_sign_up)
     void onClickSignUp() {
         if (checkForm()) {
-//            RestClient.builder()
-//                    .url("sign_up")
-//                    .params()
-//                    .success(new ISuccess() {
-//                        @Override
-//                        public void onSuccess(String response) {
-//
-//                        }
-//                    })
-//                    .build()
-//                    .post();
+            RestClient.builder()
+                    .url(Latte.getAPIHost() + "/signUp/")
+                    .params("name", mName.getText().toString())
+                    .params("email", mEmail.getText().toString())
+                    .params("phone", mPhone.getText().toString())
+                    .params("password", mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            LatteLogger.json("sign_up", response);
+                            SignHandler.onSignUp(response, mISignListener);
+                        }
+                    })
+                    .build()
+                    .post();
 
-            Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @OnClick(R2.id.tv_link_sign_in)
+    void onClickLinkSignUp() {
+        start(new SignInDelegate());
     }
 
     private boolean checkForm() {

@@ -60,4 +60,19 @@ dependencies {
     //Android Design
     compile 'com.android.support:support-v4:26.1.0'
     compile 'com.android.support:design:26.1.0'
+    //Log
+    compile 'com.orhanobut:logger:2.1.1'
+    //数据库依赖
+    compile 'org.greenrobot:greendao-generator:3.2.2'
+    compile 'org.greenrobot:greendao:3.2.2'
+    //微信依赖
+    //noinspection GradleDynamicVersion
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    //RecycleViewAdapter依赖
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    //Glide
+    compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:4.0.0-RC0@aar'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
+
 }

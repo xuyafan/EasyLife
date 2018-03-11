@@ -6,6 +6,6 @@ package com.github.xuyafan.latte.net.callback;
  */
 
 public interface IError {
-    void onError(int code,String msg);
+    void onError(int code, String msg);
 
 }

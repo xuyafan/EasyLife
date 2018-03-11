@@ -9,29 +9,26 @@ import com.github.xuyafan.latte.delegates.LatteDelegate;
 
 import me.yokeyword.fragmentation.SupportActivity;
 
-/**
- * author： xuyafan
- * description:
- */
 
 public abstract class ProxyActivity extends SupportActivity {
+
+
     public abstract LatteDelegate setRootDelegate();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         initContainer(savedInstanceState);
     }
 
-    private void initContainer(@Nullable Bundle savedInstanceState){
-        final ContentFrameLayout container =new ContentFrameLayout(this);
+    private void initContainer(@Nullable Bundle savedInstanceState) {
+        final ContentFrameLayout container = new ContentFrameLayout(this);
         container.setId(R.id.delegate_container);
-
         setContentView(container);
-        if(savedInstanceState==null){
-            loadRootFragment(R.id.delegate_container,setRootDelegate());
+        if (savedInstanceState == null) {
+            loadRootFragment(R.id.delegate_container, setRootDelegate());
         }
-
     }
 
     @Override
@@ -40,4 +37,5 @@ public abstract class ProxyActivity extends SupportActivity {
         System.gc();
         System.runFinalization();
     }
+
 }
